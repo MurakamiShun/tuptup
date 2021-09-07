@@ -7,6 +7,6 @@ namespace tuptup {
         using type = TupleType<typename F<Elms>::type...>;
     };
 
-	template<template<typename>class F, typename T>
-	using apply_to_types_t = typename apply_to_types<F, T>::type;
+    template<template<typename>class F, typename T>
+    using apply_to_types_t = typename apply_to_types<F, T>::type;
 }

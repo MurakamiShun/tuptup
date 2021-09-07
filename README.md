@@ -17,10 +17,10 @@ static_assert(std::is_same<
 
 #if __cplusplus >= 201703L
 struct {} base;
-struct :decltype(base){ int a,b,c,} some_aggregate;
+struct :decltype(base){ int a,b,c; } some_aggregate;
 
 struct_binder<decltype(some_aggregate)>::variable_num; // 3
-struct_binder<derived>::base_class_num; // 1
+struct_binder<decltype(some_aggregate)>::base_class_num; // 1
 #endif
 
 ```
