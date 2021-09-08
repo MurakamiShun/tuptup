@@ -11,7 +11,7 @@ static_assert(std::is_same<make_integer_range<int, 1, 4>, integer_sequence <int,
 
 std::tuple<int, int> i_tup;
 static_assert(std::is_same<
-    apply_to_types_t<std::make_unsigned, decltype(i_tup)>,
+    apply_type_t<std::make_unsigned, decltype(i_tup)>,
     std::tuple<unsigned int, unsigned int>
 >::value, "true");
 

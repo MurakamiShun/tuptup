@@ -26,7 +26,7 @@ int main() {
     std::tuple<int, int> bb{1,4};
     std::cout << tuptup::apply([](int a, int b) {return a + b; }, bb) << std::endl;
 
-    apply_to_types_t<std::make_unsigned, decltype(bb)> u_bb;
+    apply_type_t<std::make_unsigned, decltype(bb)> u_bb;
 
     std::tuple<std::string, int, int> sii{"test", 5, 6};
     struct {
@@ -38,6 +38,8 @@ int main() {
         }
     } functor;
     apply_each(functor, sii);
+
+    apply_each(functor, apply_filter<std::is_integral>(sii));
 
     #if __cplusplus >= 201703L
     struct {} base;

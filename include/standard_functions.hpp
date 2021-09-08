@@ -21,6 +21,12 @@ namespace tuptup {
         return std::forward_as_tuple(std::forward<Types>(args)...);
     }
 
+    template<typename... Tuples>
+    auto tuple_cat(Tuples&&... tups)
+        ->decltype(std::tuple_cat(std::forward<Tuples>(tups)...)) {
+        return std::tuple_cat(std::forward<Tuples>(tups)...);
+    }
+
     template<std::size_t I, template<typename...>class TupleType, typename... Elms>
     auto get(TupleType<Elms...>&& tup) noexcept
         -> typename std::tuple_element<I, TupleType<Elms...>>::type&&{
