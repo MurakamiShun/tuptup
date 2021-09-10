@@ -39,7 +39,10 @@ int main() {
     } functor;
     apply_each(functor, sii);
 
-    apply_each(functor, apply_filter<std::is_integral>(sii));
+    tuple_slice_t<make_integer_range<std::size_t, 1,3>, decltype(sii)> ii;
+    std::cout << std::is_same<decltype(ii), std::tuple<int, int>>::value << std::endl;
+
+    //apply_filter<std::is_integral>(sii);
 
     #if __cplusplus >= 201703L
     struct {} base;
