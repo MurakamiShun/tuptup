@@ -41,8 +41,12 @@ int main() {
 
     tuple_slice_t<make_integer_range<std::size_t, 1,3>, decltype(sii)> ii;
     std::cout << std::is_same<decltype(ii), std::tuple<int, int>>::value << std::endl;
+    tuple_slice<make_integer_range<std::size_t, 1,3>>(sii) = std::tuple<int, int>{3, 5};
 
-    //apply_filter<std::is_integral>(sii);
+    apply_each(functor, sii);
+
+    auto ii2 = tuple_filter<std::is_integral>(sii);
+    apply_each(functor, ii2);
 
     #if __cplusplus >= 201703L
     struct {} base;
