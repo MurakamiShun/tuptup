@@ -21,6 +21,11 @@ int main(){
         tuptup::make_integer_range<std::size_t, 5, 10>,
         tuptup::integer_sequence<std::size_t, 5,6,7,8,9>
     >::value));
+    assert((std::is_same<
+        tuptup::make_integer_range<int, 5, 1>,
+        tuptup::integer_sequence<int>
+    >::value));
+
 
     // apply function to integer_sequence
     tuptup::integer_sequence<std::size_t, 5,6,9> int_seq_569;

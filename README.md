@@ -3,11 +3,9 @@
 tuptup is advanced `std::tuple` library for C++11/14/17.
 
 
-# Tuple type traits
+## Type traits
 
 C++11 or later
-- tuple_size
-- tuple_element_t
 - tuple_cat_t
 - tuple_front_t
 - tuple_back_t
@@ -20,30 +18,21 @@ C++17 or later
 - struct_binder::variable_num
 - struct_binder::base_class_num
 
-# Functions
+## Functions
 
 C++11 or later
-- make_tuple
-- tie
-- forward_as_tuple
-- tuple_cat
-- get
 - tuple_front
 - tuple_back
 - tuple_slice
 - tuple_filter
-- apply
 - [apply_each](docs/apply_each.md)
 
 C++17 or later
 - struct_binder::operator()
 
-# Others
+## Others
 
-C++11 integer_sequence
-- integer_sequence
-- make_integer_sequence
-- make_integer_range
+C++11 [integer_sequence](docs/integer_sequence.md)
 
 
 # License

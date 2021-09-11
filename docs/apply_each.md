@@ -1,14 +1,16 @@
 # apply_each
 
 ```cpp
-template<typename F, typename T>
-constexpr auto apply_each(F&& f, T&& tuple); // (1)
+namespace tuptup{
+  template<typename F, typename T>
+  constexpr auto apply_each(F&& f, T&& tuple); // (1)
 
-template<typename F, typename T>
-constexpr void apply_each(F&& f, T&& tuple); // (2)
+  template<typename F, typename T>
+  constexpr void apply_each(F&& f, T&& tuple); // (2)
+}
 ```
 
-# Overview
+## Overview
 Apply given function to each element.
 - (1) `apply_each` returns `std::tuple<std::invoke_result_t<F, TupleElements>...>`.
 - (2) When given function returns `void`.
