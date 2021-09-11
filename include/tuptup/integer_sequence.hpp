@@ -72,6 +72,6 @@ namespace tuptup {
     template<typename Int, Int N>
     using make_integer_sequence = typename detail::integer_range_impl<integer_sequence<Int>, std::integral_constant<Int, 0>, std::integral_constant<Int, N>>::type;
 
-    template<typename IntSeq, typename F>
+    template<typename F, typename IntSeq>
     using integer_sequence_for_each = typename detail::integer_sequence_impl<IntSeq>::template for_each<F>::type;
 }

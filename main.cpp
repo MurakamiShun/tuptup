@@ -21,7 +21,7 @@ int main() {
 
     auto c = make_integer_range<int, 1, 4>{};
 
-    std::cout << std::is_same < integer_sequence_for_each < decltype(c),  mul2> , integer_sequence <int, 2, 4, 6>>::value << std::endl;
+    std::cout << std::is_same < integer_sequence_for_each <mul2, decltype(c)> , integer_sequence <int, 2, 4, 6>>::value << std::endl;
 
     std::tuple<int, int> bb{1,4};
     std::cout << tuptup::apply([](int a, int b) {return a + b; }, bb) << std::endl;

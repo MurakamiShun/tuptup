@@ -18,12 +18,19 @@ jobs:
 
       - name: Install
         working-directory: ${{github.workspace}}
-        run: cmake --install build
+        run: sudo cmake --install build
 
   tests:
     runs-on: ubuntu-latest
+    needs: [installation_test]
     steps:
       - uses: actions/checkout@v2
+
+      - name: Configure CMake and install
+        working-directory: ${{github.workspace}}
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .
+          sudo cmake --install build
 
       - name: Configure CMake
         working-directory: ${{github.workspace}}/tests
