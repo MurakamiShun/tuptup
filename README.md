@@ -3,24 +3,48 @@
 tuptup is advanced `std::tuple` library for C++11/14/17.
 
 
-# Example
+# Tuple type traits
 
-```cpp
-using tuptup;
-static_assert(std::is_same<make_integer_range<int, 1, 4>, integer_sequence <int, 1, 2, 3>>::value, "true");
+C++11 or later
+- tuple_size
+- tuple_element_t
+- tuple_cat_t
+- tuple_front_t
+- tuple_back_t
+- apply_type_t
+- tuple_slice_t
+- tuple_filter_t
 
-std::tuple<int, int> i_tup;
-static_assert(std::is_same<
-    apply_type_t<std::make_unsigned, decltype(i_tup)>,
-    std::tuple<unsigned int, unsigned int>
->::value, "true");
+C++17 or later
+- struct_binder::tuple_type
+- struct_binder::variable_num
+- struct_binder::base_class_num
 
-#if __cplusplus >= 201703L
-struct {} base;
-struct :decltype(base){ int a,b,c; } some_aggregate;
+# Functions
 
-struct_binder<decltype(some_aggregate)>::variable_num; // 3
-struct_binder<decltype(some_aggregate)>::base_class_num; // 1
-#endif
+C++11 or later
+- make_tuple
+- tie
+- forward_as_tuple
+- tuple_cat
+- get
+- tuple_front
+- tuple_back
+- tuple_slice
+- tuple_filter
+- apply
+- apply_each
 
-```
+C++17 or later
+- struct_binder::operator()
+
+# Others
+
+C++11 integer_sequence
+- integer_sequence
+- make_integer_sequence
+- make_integer_range
+
+
+# License
+This software is released under the MIT License, see [LICENSE](LICENSE).
