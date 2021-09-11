@@ -4,8 +4,13 @@ namespace tuptup{
   template<typename T>
   struct struct_binder { // T must be aggregator
     static constexpr std::size_t base_class_num = /*the number of base class count*/;
+    
     static constexpr std::size_t variable_num = /*the number of member variable count of T*/;
+    
     using type = std::tuple</*reference to struct varible...*/>;
+    
+    constexpr type operator()(T&) const noexcept;
+    constexpr type operator()(const T&) const noexcept;
   };
 }
 ```

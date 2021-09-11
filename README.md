@@ -14,9 +14,7 @@ C++11 or later
 - [tuple_filter_t](docs/tuple_filter.md)
 
 C++17 or later
-- struct_binder::type
-- struct_binder::variable_num
-- struct_binder::base_class_num
+- [struct_binder](docs/struct_binder.md)
 
 ## Functions
 
@@ -29,7 +27,7 @@ C++11 or later
 - apply (Compatible with `std::apply`)
 
 C++17 or later
-- struct_binder::operator()
+- [struct_binder::operator()](docs/struct_binder.md)
 
 ## Others
 

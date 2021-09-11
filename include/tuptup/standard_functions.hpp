@@ -36,7 +36,7 @@ namespace tuptup {
     }
 
     template<typename T>
-    auto tuple_front(T&& t) noexcept
+    constexpr auto tuple_front(T&& t) noexcept
         ->typename std::tuple_element<0, T>::type&&{
         return get<0>(std::forward<decltype(t)>(t));
     }

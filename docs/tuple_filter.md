@@ -2,7 +2,7 @@
 ```cpp
 namespace tuptup{
   template<template<typename>class F, typename T>
-  auto tuple_filter(T&& tup) noexcept;
+  constexpr auto tuple_filter(T&& tup);
 }
 ```
 

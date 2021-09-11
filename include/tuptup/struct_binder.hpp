@@ -1587,6 +1587,9 @@ namespace tuptup{
         constexpr auto operator()(T& t) const noexcept {
             return detail::make_reference_tuple(t, std::integral_constant<std::size_t, variable_num>{});
         }
+        constexpr auto operator()(const T& t) const noexcept {
+            return detail::make_reference_tuple(t, std::integral_constant<std::size_t, variable_num>{});
+        }
 
         using type = decltype(detail::make_reference_tuple(std::declval<T&>(), std::integral_constant<std::size_t, variable_num>{}));
     };

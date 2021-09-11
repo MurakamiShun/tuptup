@@ -74,4 +74,14 @@ namespace tuptup {
 
     template<typename F, typename IntSeq>
     using integer_sequence_for_each = typename detail::integer_sequence_impl<IntSeq>::template for_each<F>::type;
+
+    template<std::size_t... I>
+    using index_sequence = integer_sequence<std::size_t, I...>;
+    template<std::size_t N>
+    using make_index_sequence = make_integer_sequence<std::size_t, N>;
+    template<std::size_t First, std::size_t Last>
+    using make_index_range = make_integer_range<std::size_t, First, Last>;
+
+    template<typename... T>
+    using index_sequence_for = make_index_sequence<sizeof...(T)>;
 }

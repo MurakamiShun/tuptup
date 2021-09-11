@@ -2,7 +2,6 @@
 #include <array>
 #include <cassert>
 #include <tuptup.hpp>
-
 struct Base{};
 
 /*
@@ -26,6 +25,8 @@ int main(){
     Test t = {{}, 0,1,"fff", "test"};
     std::tuple<int&, int&, std::array<char,4>&, std::string&> ref_tuple = binder(t);
     std::get<3>(ref_tuple) = "changed";
+
+    binder(static_cast<const Test>(t));
 
     assert(t.str == "changed");
 }

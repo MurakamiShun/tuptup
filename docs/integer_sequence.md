@@ -12,7 +12,7 @@ namespace tuptup{
 
 ## Overview
 `tuptup::integer_sequence` is compatible with `std::integer_sequence`.
-`tuptup::integer_sequence` is written for C++11.
+`tuptup::integer_sequence` is written by C++11.
 
 ## Generator alias
 

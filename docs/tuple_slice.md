@@ -2,7 +2,7 @@
 ```cpp
 namespace tuptup{
   template<typename IntSeq, typename T>
-  auto tuple_slice(T&& tup) noexcept -> std::tuple<std::tuple_element_t</*IntSeq values*/>...>;
+  constexpr auto tuple_slice(T&& tup) -> std::tuple<std::tuple_element_t</*IntSeq values*/>...>;
 }
 ```
 ## Example
