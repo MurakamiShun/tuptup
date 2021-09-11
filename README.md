@@ -33,7 +33,7 @@ C++11 or later
 - tuple_slice
 - tuple_filter
 - apply
-- apply_each
+- [apply_each](docs/apply_each.md)
 
 C++17 or later
 - struct_binder::operator()

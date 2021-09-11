@@ -1,10 +1,10 @@
 #pragma once
-#include "standard_functions.hpp"
-#include "integer_sequence.hpp"
-#include "apply.hpp"
-#include "tuple_traits.hpp"
-#include "tuple_slice.hpp"
-#include "tuple_filter.hpp"
+#include "tuptup/standard_functions.hpp"
+#include "tuptup/integer_sequence.hpp"
+#include "tuptup/apply.hpp"
+#include "tuptup/tuple_traits.hpp"
+#include "tuptup/tuple_slice.hpp"
+#include "tuptup/tuple_filter.hpp"
 #if __cplusplus >= 201703L
-#include "struct_binder.hpp"
+#include "tuptup/struct_binder.hpp"
 #endif

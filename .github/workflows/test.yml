@@ -1,0 +1,38 @@
+name: test
+
+on:
+  push:
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  installation_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure CMake
+        working-directory: ${{github.workspace}}
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .
+
+      - name: Install
+        working-directory: ${{github.workspace}}
+        run: cmake --install build
+
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure CMake
+        working-directory: ${{github.workspace}}/tests
+        run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .
+
+      - name: Build
+        working-directory: ${{github.workspace}}/tests
+        run: cmake --build build --config ${{env.BUILD_TYPE}} -j2
+
+      - name: Run tests
+        working-directory: ${{github.workspace}}/tests/build
+        run: ctest
