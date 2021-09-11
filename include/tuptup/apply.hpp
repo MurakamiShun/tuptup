@@ -10,7 +10,7 @@ namespace tuptup {
         return std::apply(std::forward<F>(f), std::forward<T>(tup));
     }
 #elif __cplusplus >= 201402L
-    namespace impl {
+    namespace detail {
         template<typename F, typename Tuple, std::size_t... I>
         decltype(auto) apply_impl(F&& f, Tuple&& tup, integer_sequence<std::size_t, I...>&&) {
             return f(std::get<I>(tup)...);
@@ -19,10 +19,10 @@ namespace tuptup {
 
     template<typename F, typename T>
     decltype(auto) apply(F&& f, T&& tup) {
-        return impl::apply_impl(std::forward<F>(f), std::forward<T>(tup), make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>{});
+        return detail::apply_impl(std::forward<F>(f), std::forward<T>(tup), make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>{});
     }
 #elif __cplusplus >= 201103L
-    namespace impl {
+    namespace detail {
         template<typename F, typename Tuple, std::size_t... I>
         auto apply_impl(F&& f, Tuple&& tup, integer_sequence<std::size_t, I...>&&)
             -> decltype(f(std::get<I>(tup)...)){
@@ -31,9 +31,9 @@ namespace tuptup {
     }
 
     template<typename F, typename T>
-    auto apply(F&& f, T&& tup)
-        -> decltype(impl::apply_impl(std::forward<F>(f), std::forward<T>(tup), make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>{})) {
-        return impl::apply_impl(std::forward<F>(f), std::forward<T>(tup), make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>{});
+    constexpr auto apply(F&& f, T&& tup)
+        -> decltype(detail::apply_impl(std::forward<F>(f), std::forward<T>(tup), make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>{})) {
+        return detail::apply_impl(std::forward<F>(f), std::forward<T>(tup), make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>{});
     }
 #endif
     namespace detail {

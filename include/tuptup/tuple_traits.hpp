@@ -8,6 +8,9 @@ namespace tuptup {
     struct tuple_size<TupleType<Elems...>>{
         constexpr static std::size_t value = sizeof...(Elems);
     };
+
+    template<typename... Elms>
+    using tuple = std::tuple<Elms...>;
     
     template<typename... Tuples>
     using tuple_cat_t = decltype(std::tuple_cat(std::declval<Tuples>()...));

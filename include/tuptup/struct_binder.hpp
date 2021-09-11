@@ -1584,11 +1584,11 @@ namespace tuptup{
             ) - 1;
         }() - base_class_num;
 
-        auto operator()(T& t) const noexcept {
+        constexpr auto operator()(T& t) const noexcept {
             return detail::make_reference_tuple(t, std::integral_constant<std::size_t, variable_num>{});
         }
 
-        using tuple_type = decltype(detail::make_reference_tuple(std::declval<T&>(), std::integral_constant<std::size_t, variable_num>{}));
+        using type = decltype(detail::make_reference_tuple(std::declval<T&>(), std::integral_constant<std::size_t, variable_num>{}));
     };
 }
 #endif

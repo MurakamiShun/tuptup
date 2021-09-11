@@ -12,7 +12,7 @@ namespace tuptup {
         };
 
         template<typename Int, typename T, Int... I>
-        auto tuple_slice_func_impl(integer_sequence<Int, I...>, T&& tup) noexcept
+        constexpr auto tuple_slice_func_impl(integer_sequence<Int, I...>, T&& tup)
             -> decltype(std::make_tuple(std::get<I>(std::forward<T>(tup))...)){
             return std::make_tuple(std::get<I>(std::forward<T>(tup))...);
         }
@@ -22,7 +22,7 @@ namespace tuptup {
     using tuple_slice_t = typename detail::tuple_slice_impl<IntSeq, T>::type;
 
     template<typename IntSeq, typename T>
-    auto tuple_slice(T&& tup) noexcept
+    constexpr auto tuple_slice(T&& tup)
         -> typename detail::tuple_slice_impl<IntSeq, typename std::remove_reference<T>::type>::type {
         return detail::tuple_slice_func_impl(IntSeq{}, std::forward<T>(tup));
     }

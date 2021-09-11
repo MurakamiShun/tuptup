@@ -9,5 +9,16 @@ enable_testing()
 add_executable(integer_sequence integer_sequence.cpp)
 add_test(NAME integer_sequence_test COMMAND integer_sequence)
 
+add_executable(tuple_slice tuple_slice.cpp)
+add_test(NAME tuple_slice_test COMMAND tuple_slice)
+
+add_executable(tuple_filter tuple_filter.cpp)
+add_test(NAME tuple_filter_test COMMAND tuple_filter)
+
 add_executable(apply_each apply_each.cpp)
 add_test(NAME apply_each_test COMMAND apply_each)
+
+
+add_executable(struct_binder struct_binder.cpp)
+target_compile_features(struct_binder PRIVATE cxx_std_17)
+add_test(NAME struct_binder_test COMMAND struct_binder)
