@@ -1,17 +1,20 @@
 #include <sstream>
 #include <cassert>
-#include <tuptup.hpp>
+//#include <tuptup.hpp>
+#include "../include/tuptup.hpp"
 
 int main(){
     std::tuple<std::string, int, int> sii{"test", 5, 6};
     
     struct {
         std::ostringstream oss;
-        void operator()(const std::string& str){
+        std::string operator()(const std::string& str){
             oss << "string:" << str;
+            return "";
         }
-        void operator()(const int i){
+        int operator()(const int i){
             oss << "int:" << i;
+            return 0;
         }
     } functor;
 

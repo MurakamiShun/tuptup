@@ -3,8 +3,6 @@
 #include <iostream>
 //#include <tuptup.hpp>
 #include "../include/tuptup.hpp"
-#include "../include/tuptup/indexed_apply_each.hpp"
-#include <cxxabi.h>
 
 struct func{
     std::ostringstream oss;
@@ -14,12 +12,12 @@ struct func{
         return "eeee";
     }
     template<std::size_t N>
-    int8_t operator()(const int8_t i){
+    int64_t operator()(const int8_t i){
         oss << N << "-int:" << i;
         return 99;
     }
     template<std::size_t N>
-    int64_t operator()(const int64_t i){
+    int8_t operator()(const int64_t i){
         oss << N << "-int:" << i;
         return 99;
     }
@@ -32,7 +30,6 @@ int main(){
 
     auto result = tuptup::indexed_apply_each(functor, sii);
 
-    std::cout << abi::__cxa_demangle(typeid(result).name(), 0, 0, nullptr) << std::endl;
-
-    std::cout << functor.oss.str() << std::endl;
+    assert((functor.oss.str() == "0-string:test1-int:2-int:6"));
+    assert((std::is_same<decltype(result), std::tuple<std::string, int64_t, int8_t>>::value));
 }

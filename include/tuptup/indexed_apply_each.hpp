@@ -6,10 +6,13 @@
 
 namespace tuptup{
         namespace detail {
-        template<typename F, typename T, typename IntSeq>
+        template<typename F, typename IntSeq>
         struct indexed_apply_each_impl;
-        template<typename F, typename T, std::size_t... I>
-        struct indexed_apply_each_impl<F, T, integer_sequence<std::size_t, I...>> {
+        template<typename F, std::size_t... I>
+        struct indexed_apply_each_impl<F, integer_sequence<std::size_t, I...>> {
+            template<typename V>
+            using convert_to_constructible = typename std::conditional<std::is_same<V, void>::value, std::false_type, V>::type;
+
             template<std::size_t N, typename Elm>
             constexpr static auto call(F& f, Elm&& elm, int)
                 -> decltype(tuptup::make_tuple(f.template operator()<N>(std::forward<Elm>(elm))));
@@ -27,7 +30,7 @@ namespace tuptup{
                     tuptup::make_tuple(std::move(buff)),
                     call_all(
                         f, std::forward<Tup>(tup), integer_sequence<std::size_t, Tails...>{},
-                        decltype(f.template operator()<Head+1>(std::get<Head+1>(std::forward<Tup>(tup)))){}, 0
+                        convert_to_constructible<decltype(f.template operator()<Head+1>(std::get<Head+1>(std::forward<Tup>(tup))))>{}, 0
                     )
                 ));
             }
@@ -39,7 +42,7 @@ namespace tuptup{
                 return (f.template operator()<Head>(std::get<Head>(std::forward<Tup>(tup))),
                 call_all(
                     f, std::forward<Tup>(tup), integer_sequence<std::size_t, Tails...>{},
-                    decltype(f.template operator()<Head+1>(std::get<Head+1>(std::forward<Tup>(tup)))){},0
+                    convert_to_constructible<decltype(f.template operator()<Head+1>(std::get<Head+1>(std::forward<Tup>(tup))))>{},0
                 ));
             }
             template<typename Tup, std::size_t Head, typename NextBuff, std::size_t... Tails>
@@ -61,19 +64,19 @@ namespace tuptup{
             template<typename Tup>
             constexpr auto operator()(F& f, Tup&& t) const
                 -> decltype(call_all(f, std::forward<Tup>(t), integer_sequence<std::size_t, I...>{},
-                    decltype(f.template operator()<0>(std::get<0>(std::forward<Tup>(t)))){},0)) {
+                    convert_to_constructible<decltype(f.template operator()<0>(std::get<0>(std::forward<Tup>(t))))>{},0)) {
                 return call_all(f, std::forward<Tup>(t), integer_sequence<std::size_t, I...>{},
-                    decltype(f.template operator()<0>(std::get<0>(std::forward<Tup>(t)))){}, 0);
+                    convert_to_constructible<decltype(f.template operator()<0>(std::get<0>(std::forward<Tup>(t))))>{}, 0);
             }
         };
     }
     template<typename F, typename T>
     constexpr auto indexed_apply_each(F&& f, T&& tup)
         -> decltype(detail::indexed_apply_each_impl<
-            typename std::remove_reference<F>::type, T,
+            typename std::remove_reference<F>::type,
             make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>>{}(f, std::forward<T>(tup))) {
         return detail::indexed_apply_each_impl<
-            typename std::remove_reference<F>::type, T,
+            typename std::remove_reference<F>::type,
             make_integer_sequence<std::size_t, tuple_size<typename std::remove_reference<T>::type>::value>>{}(f, std::forward<T>(tup));
     }
 }
