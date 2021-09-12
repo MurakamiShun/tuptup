@@ -24,6 +24,7 @@ C++11 or later
 - [tuple_slice](docs/tuple_slice.md)
 - [tuple_filter](docs/tuple_filter.md)
 - [apply_each](docs/apply_each.md)
+- [indexed_apply_each](docs/indexed_apply_each.md)
 - apply (Compatible with `std::apply`)
 
 C++17 or later

@@ -6,7 +6,7 @@ namespace tuptup{
   constexpr auto apply_each(F&& f, T&& tuple); // (1)
 
   template<typename F, typename T>
-  constexpr void apply_each(F&& f, T&& tuple); // (2)
+  constexpr std::tuple<> apply_each(F&& f, T&& tuple); // (2)
 }
 ```
 
