@@ -3,7 +3,7 @@
 #include <type_traits>
 
 struct square{
-    constexpr std::size_t operator()(std::size_t N)noexcept{
+    constexpr std::size_t operator()(std::size_t N) const noexcept{
         return N*N;
     }
 };

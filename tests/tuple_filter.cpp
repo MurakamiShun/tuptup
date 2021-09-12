@@ -1,5 +1,7 @@
 #include <cassert>
 #include <tuptup.hpp>
+#include <string>
+#include <cstdint>
 
 template<typename T>
 struct is_over2byte{
