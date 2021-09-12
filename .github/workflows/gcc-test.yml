@@ -5,6 +5,8 @@ on:
 
 env:
   BUILD_TYPE: Debug
+  CC: gcc-10
+  CXX: g++-10
 
 jobs:
   installation_test:
