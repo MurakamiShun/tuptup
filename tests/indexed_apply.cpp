@@ -1,7 +1,10 @@
 #include <sstream>
 #include <cassert>
 #include <iostream>
-#include <tuptup.hpp>
+//#include <tuptup.hpp>
+#include "../include/tuptup.hpp"
+#include "../include/tuptup/indexed_apply_each.hpp"
+#include <cxxabi.h>
 
 struct func{
     std::ostringstream oss;
@@ -29,4 +32,7 @@ int main(){
 
     auto result = tuptup::indexed_apply_each(functor, sii);
 
+    std::cout << abi::__cxa_demangle(typeid(result).name(), 0, 0, nullptr) << std::endl;
+
+    std::cout << functor.oss.str() << std::endl;
 }
