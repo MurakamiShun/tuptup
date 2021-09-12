@@ -15,6 +15,9 @@ add_test(NAME tuple_slice_test COMMAND tuple_slice)
 add_executable(tuple_filter tuple_filter.cpp)
 add_test(NAME tuple_filter_test COMMAND tuple_filter)
 
+add_executable(apply apply.cpp)
+add_test(NAME apply_test COMMAND apply)
+
 add_executable(apply_each apply_each.cpp)
 add_test(NAME apply_each_test COMMAND apply_each)
 
