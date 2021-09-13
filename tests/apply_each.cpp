@@ -1,7 +1,6 @@
 #include <sstream>
 #include <cassert>
-//#include <tuptup.hpp>
-#include "../include/tuptup.hpp"
+#include <tuptup.hpp>
 
 int main(){
     std::tuple<std::string, int, int> sii{"test", 5, 6};

@@ -1,8 +1,7 @@
 #include <sstream>
 #include <cassert>
 #include <iostream>
-//#include <tuptup.hpp>
-#include "../include/tuptup.hpp"
+#include <tuptup.hpp>
 
 struct func{
     std::ostringstream oss;

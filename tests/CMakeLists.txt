@@ -22,6 +22,8 @@ add_test(NAME apply_test COMMAND apply)
 add_executable(apply_each apply_each.cpp)
 add_test(NAME apply_each_test COMMAND apply_each)
 
+add_executable(indexed_apply indexed_apply.cpp)
+add_test(NAME indexed_apply_test COMMAND indexed_apply)
 
 add_executable(struct_binder struct_binder.cpp)
 target_compile_features(struct_binder PRIVATE cxx_std_17)
