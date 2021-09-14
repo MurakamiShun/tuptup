@@ -1,5 +1,6 @@
 #pragma once
 #include <tuple>
+#include <array>
 #include "tuple_slice.hpp"
 
 namespace tuptup {
