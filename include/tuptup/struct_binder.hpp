@@ -1,6 +1,4 @@
 #pragma once
-#if __cplusplus >= 201703L // MSVC doesn't have this macro on default
-
 #include <type_traits>
 #include <tuple>
 #include <array>
@@ -1594,4 +1592,3 @@ namespace tuptup{
         using type = decltype(detail::make_reference_tuple(std::declval<T&>(), std::integral_constant<std::size_t, variable_num>{}));
     };
 }
-#endif

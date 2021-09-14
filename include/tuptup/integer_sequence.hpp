@@ -1,12 +1,9 @@
 #pragma once
-#if __cplusplus < 201103L
-#error requires C++11 or later
-#endif
 
 #include <utility>
 #include <type_traits>
 namespace tuptup {
-#if __cplusplus < 201402L // MSVC doesn't have this macro on default
+#if (defined(__cplusplus) && __cplusplus < 201402L)  || (defined(_MSC_VER) && _MSVC_LANG < 201402L)
     template<typename Int, Int... I>
     struct integer_sequence {
         using value_type = Int;
