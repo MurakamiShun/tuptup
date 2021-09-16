@@ -11,6 +11,7 @@
 #include "tuptup/tuple_traits.hpp"
 #include "tuptup/tuple_slice.hpp"
 #include "tuptup/tuple_filter.hpp"
+#include "tuptup/placeholder_t.hpp"
 
 #if (defined(__cplusplus) && __cplusplus >= 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)
 #include "tuptup/struct_binder.hpp"
