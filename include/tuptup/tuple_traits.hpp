@@ -1,5 +1,6 @@
 #pragma once
 #include <tuple>
+#include "placeholder_t.hpp"
 
 namespace tuptup {
     template<typename T>
@@ -26,13 +27,13 @@ namespace tuptup {
     template<typename T>
     using tuple_back_t = typename tuple_element<tuple_size<T>::value - 1, T>::type;
 
-    template<template<typename>class F, typename T>
+    template<typename F, typename T, typename enabler = void>
     struct apply_type;
-    template<template<typename>class F, template<typename...>class TupleType, typename... Elms>
-    struct apply_type<F, TupleType<Elms...>>{
-        using type = TupleType<typename F<Elms>::type...>;
+    template<typename F, template<typename...>class TupleType, typename... Elms>
+    struct apply_type<F, TupleType<Elms...>, typename std::enable_if<placeholder_t_count<F>::value == 1>::type>{
+        using type = TupleType<typename replace<F, Elms>::type...>;
     };
 
-    template<template<typename>class F, typename T>
+    template<typename F, typename T, typename std::enable_if<placeholder_t_count<F>::value == 1, std::nullptr_t>::type = nullptr>
     using apply_type_t = typename apply_type<F, T>::type;
 }
