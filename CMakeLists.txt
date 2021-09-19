@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-project(tuptup VERSION 0.1 LANGUAGES CXX)
+project(tuptup VERSION 1.0.0 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
