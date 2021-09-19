@@ -70,29 +70,28 @@ namespace tuptup{
             };
             using type = typename replace_impl<Binded>::type;
         };
-
-
-        template<typename Binded>
-        struct placeholder_t_count;
-        template<template<typename...>class Type, typename... Args>
-        struct placeholder_t_count<Type<Args...>>{
-            template<typename T, typename... Ts>
-            struct count_placeholder;
-            template<typename T, std::size_t Head, typename... Tails>
-            struct count_placeholder<T, tuptup::placeholder_t::placeholder<Head>, Tails...>{
-                static constexpr std::size_t value = count_placeholder<T, Tails...>::value + 1;
-            };
-            template<typename T, typename Head, typename... Tails>
-            struct count_placeholder<T, Head, Tails...>{
-                static constexpr std::size_t value = count_placeholder<T, Tails...>::value;
-            };
-            template<typename T>
-            struct count_placeholder<T>{
-                static constexpr std::size_t value = 0;
-            };
-            static constexpr std::size_t value = count_placeholder<void, Args...>::value;
-        };
     }
     template<typename Binded, typename... Args>
     using replace = typename detail::replace_detail<Binded, Args...>::type;
+
+    template<typename Binded>
+    struct placeholder_t_count;
+    template<template<typename...>class Type, typename... Args>
+    struct placeholder_t_count<Type<Args...>>{
+        template<typename T, typename... Ts>
+        struct count_placeholder;
+        template<typename T, std::size_t Head, typename... Tails>
+        struct count_placeholder<T, tuptup::placeholder_t::placeholder<Head>, Tails...>{
+            static constexpr std::size_t value = count_placeholder<T, Tails...>::value + 1;
+        };
+        template<typename T, typename Head, typename... Tails>
+        struct count_placeholder<T, Head, Tails...>{
+            static constexpr std::size_t value = count_placeholder<T, Tails...>::value;
+        };
+        template<typename T>
+        struct count_placeholder<T>{
+            static constexpr std::size_t value = 0;
+        };
+        static constexpr std::size_t value = count_placeholder<void, Args...>::value;
+    };
 }
