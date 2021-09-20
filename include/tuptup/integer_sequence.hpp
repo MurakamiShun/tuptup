@@ -1,7 +1,13 @@
 #pragma once
-
 #include <utility>
 #include <type_traits>
+/*
+ * tuptup: https://github.com/akisute514/tuptup/
+ * Copyright (c) 2021 akisute514
+ * 
+ * Released under the MIT Lisence.
+ */
+
 namespace tuptup {
 #if (defined(__cplusplus) && __cplusplus < 201402L)  || (defined(_MSC_VER) && _MSVC_LANG < 201402L)
     template<typename Int, Int... I>

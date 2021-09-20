@@ -1,8 +1,15 @@
 #pragma once
+#include <tuple>
+/*
+ * tuptup: https://github.com/akisute514/tuptup/
+ * Copyright (c) 2021 akisute514
+ * 
+ * Released under the MIT Lisence.
+ */
+
 #include "integer_sequence.hpp"
 #include "tuple_traits.hpp"
 #include "standard_functions.hpp"
-#include <tuple>
 
 namespace tuptup{
         namespace detail {

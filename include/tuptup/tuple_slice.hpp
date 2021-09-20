@@ -1,4 +1,11 @@
 #pragma once
+/*
+ * tuptup: https://github.com/akisute514/tuptup/
+ * Copyright (c) 2021 akisute514
+ * 
+ * Released under the MIT Lisence.
+ */
+
 #include "integer_sequence.hpp"
 #include "tuple_traits.hpp"
 

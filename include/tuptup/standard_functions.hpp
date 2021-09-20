@@ -1,5 +1,11 @@
 #pragma once
 #include <tuple>
+/*
+ * tuptup: https://github.com/akisute514/tuptup/
+ * Copyright (c) 2021 akisute514
+ * 
+ * Released under the MIT Lisence.
+ */
 
 namespace tuptup {
     template<typename... Types>

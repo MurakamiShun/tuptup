@@ -1,4 +1,11 @@
 #pragma once
+/*
+ * tuptup: https://github.com/akisute514/tuptup/
+ * Copyright (c) 2021 akisute514
+ * 
+ * Released under the MIT Lisence.
+ */
+
 #if (defined(__cplusplus) && __cplusplus < 201103L) && !defined(_MSC_VER) // MSVC is broken on C++11
 #error requires C++11 or later
 #endif

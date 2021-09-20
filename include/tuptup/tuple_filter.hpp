@@ -1,6 +1,13 @@
 #pragma once
 #include <tuple>
 #include <array>
+/*
+ * tuptup: https://github.com/akisute514/tuptup/
+ * Copyright (c) 2021 akisute514
+ * 
+ * Released under the MIT Lisence.
+ */
+
 #include "tuple_slice.hpp"
 #include "placeholder_t.hpp"
 
