@@ -33,6 +33,7 @@ C++17 or later
 ## Others
 
 C++11 [integer_sequence](docs/integer_sequence.md)
+[type_placeholders](docs/type_placeholders.md)
 
 
 # License

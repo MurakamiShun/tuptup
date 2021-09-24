@@ -9,7 +9,7 @@
  */
 
 #include "tuple_slice.hpp"
-#include "placeholder_t.hpp"
+#include "type_placeholders.hpp"
 
 namespace tuptup {
     namespace detail {
@@ -17,7 +17,7 @@ namespace tuptup {
         struct make_bool_sequence;
         template<typename F, template<typename...>class TupleType, typename... Elms>
         struct make_bool_sequence<F, TupleType<Elms...>>{
-            using type = integer_sequence<bool, replace<F, Elms>::value...>;
+            using type = integer_sequence<bool, type_placeholders::replace<F, Elms>::value...>;
         };
         
         template<typename BoolSeq>

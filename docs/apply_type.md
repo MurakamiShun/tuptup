@@ -20,7 +20,7 @@ Make tuple with `F<tuple element type>::type`.
 ## Example
 ```cpp
 static_assert(std::is_same<
-    tuptup::apply_type_t<std::remove_reference<tuptup::placeholder_t::_1>, std::tuple<int, char&>>,
+    tuptup::apply_type_t<std::remove_reference<tuptup::type_placeholders::_1>, std::tuple<int, char&>>,
     std::tuple<int, char>
 >::value, "true");
 ```

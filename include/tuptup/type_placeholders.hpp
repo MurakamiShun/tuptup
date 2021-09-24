@@ -7,34 +7,29 @@
  * Released under the MIT Lisence.
  */
 
-namespace tuptup{
-    namespace placeholder_t {
-        template<std::size_t N>
-        struct placeholder{
-            static constexpr std::size_t value = N;
-        };
+namespace tuptup::type_placeholders {
+    template<std::size_t N>
+    struct placeholder_t {
+        static constexpr std::size_t value = N;
+    };
 
-        using _1 = placeholder<1>;
-        using _2 = placeholder<2>;
-        using _3 = placeholder<3>;
-        using _4 = placeholder<4>;
-        using _5 = placeholder<5>;
-        using _6 = placeholder<6>;
-        using _7 = placeholder<7>;
-        using _8 = placeholder<8>;
-        using _9 = placeholder<9>;
-        using _10 = placeholder<10>;
-        using _11 = placeholder<11>;
-        using _12 = placeholder<12>;
-        using _13 = placeholder<13>;
-        using _14 = placeholder<14>;
-        using _15 = placeholder<15>;
-        using _16 = placeholder<16>;
-        using _17 = placeholder<17>;
-        using _18 = placeholder<18>;
-        using _19 = placeholder<19>;
-        using _20 = placeholder<20>;
-    }
+    using _1 = placeholder_t<1>;
+    using _2 = placeholder_t<2>;
+    using _3 = placeholder_t<3>;
+    using _4 = placeholder_t<4>;
+    using _5 = placeholder_t<5>;
+    using _6 = placeholder_t<6>;
+    using _7 = placeholder_t<7>;
+    using _8 = placeholder_t<8>;
+    using _9 = placeholder_t<9>;
+    using _10 = placeholder_t<10>;
+    using _11 = placeholder_t<11>;
+    using _12 = placeholder_t<12>;
+    using _13 = placeholder_t<13>;
+    using _14 = placeholder_t<14>;
+    using _15 = placeholder_t<15>;
+    using _16 = placeholder_t<16>;
+
     namespace detail{
         template<typename... Ts>
         struct type_tuple;
@@ -65,7 +60,7 @@ namespace tuptup{
                 using type = T;
             };
             template<std::size_t N>
-            struct replace_if_placeholder<placeholder_t::placeholder<N>>{
+            struct replace_if_placeholder<placeholder_t<N>>{
                 using type = typename type_tuple<Args...>::template get<N-1>;
             };
             template<typename T>
@@ -81,13 +76,13 @@ namespace tuptup{
     using replace = typename detail::replace_detail<Binded, Args...>::type;
 
     template<typename Binded>
-    struct placeholder_t_count;
+    struct count;
     template<template<typename...>class Type, typename... Args>
-    struct placeholder_t_count<Type<Args...>>{
+    struct count<Type<Args...>>{
         template<typename T, typename... Ts>
         struct count_placeholder;
         template<typename T, std::size_t Head, typename... Tails>
-        struct count_placeholder<T, tuptup::placeholder_t::placeholder<Head>, Tails...>{
+        struct count_placeholder<T, placeholder_t<Head>, Tails...>{
             static constexpr std::size_t value = count_placeholder<T, Tails...>::value + 1;
         };
         template<typename T, typename Head, typename... Tails>
