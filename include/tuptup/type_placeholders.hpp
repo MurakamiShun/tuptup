@@ -7,7 +7,8 @@
  * Released under the MIT Lisence.
  */
 
-namespace tuptup::type_placeholders {
+namespace tuptup{
+namespace type_placeholders {
     template<std::size_t N>
     struct placeholder_t {
         static constexpr std::size_t value = N;
@@ -95,4 +96,5 @@ namespace tuptup::type_placeholders {
         };
         static constexpr std::size_t value = count_placeholder<void, Args...>::value;
     };
+}
 }
