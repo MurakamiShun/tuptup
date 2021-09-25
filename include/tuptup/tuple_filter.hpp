@@ -17,7 +17,11 @@ namespace tuptup {
         struct make_bool_sequence;
         template<typename F, template<typename...>class TupleType, typename... Elms>
         struct make_bool_sequence<F, TupleType<Elms...>>{
-            using type = integer_sequence<bool, type_placeholders::replace<F, Elms>::value...>;
+            using type = integer_sequence<bool, static_cast<bool>(type_placeholders::replace<F, Elms>::value)...>;
+        };
+        template<typename F, template<typename...>class TupleType, typename... Elms>
+        struct make_bool_sequence<F, const TupleType<Elms...>>{
+            using type = integer_sequence<bool, static_cast<bool>(type_placeholders::replace<F, Elms>::value)...>;
         };
         
         template<typename BoolSeq>

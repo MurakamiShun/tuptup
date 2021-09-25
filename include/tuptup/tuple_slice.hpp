@@ -20,8 +20,8 @@ namespace tuptup {
 
         template<typename Int, typename T, Int... I>
         constexpr auto tuple_slice_func_impl(integer_sequence<Int, I...>, T&& tup)
-            -> decltype(std::make_tuple(std::get<I>(std::forward<T>(tup))...)){
-            return std::make_tuple(std::get<I>(std::forward<T>(tup))...);
+            -> std::tuple<typename std::tuple_element<I, typename std::remove_reference<T>::type>::type...>{
+            return { std::get<I>(std::forward<T>(tup))... };
         }
     }
 

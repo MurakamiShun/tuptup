@@ -16,6 +16,10 @@ namespace tuptup {
     struct tuple_size<TupleType<Elems...>>{
         constexpr static std::size_t value = sizeof...(Elems);
     };
+    template<template<typename...>class TupleType, typename... Elems>
+    struct tuple_size<const TupleType<Elems...>>{
+        constexpr static std::size_t value = sizeof...(Elems);
+    };
 
     template<typename... Elms>
     using tuple = std::tuple<Elms...>;
@@ -39,6 +43,10 @@ namespace tuptup {
     template<typename F, template<typename...>class TupleType, typename... Elms>
     struct apply_type<F, TupleType<Elms...>, typename std::enable_if<type_placeholders::count<F>::value == 1>::type>{
         using type = TupleType<typename type_placeholders::replace<F, Elms>::type...>;
+    };
+    template<typename F, template<typename...>class TupleType, typename... Elms>
+    struct apply_type<F, const TupleType<Elms...>, typename std::enable_if<type_placeholders::count<F>::value == 1>::type>{
+        using type = const TupleType<typename type_placeholders::replace<F, Elms>::type...>;
     };
 
     template<typename F, typename T, typename std::enable_if<type_placeholders::count<F>::value == 1, std::nullptr_t>::type = nullptr>
