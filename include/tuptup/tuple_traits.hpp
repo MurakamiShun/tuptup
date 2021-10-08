@@ -7,13 +7,17 @@
  * Released under the MIT Lisence.
  */
 
-#include "placeholder_t.hpp"
+#include "type_placeholders.hpp"
 
 namespace tuptup {
     template<typename T>
     struct tuple_size;
     template<template<typename...>class TupleType, typename... Elems>
     struct tuple_size<TupleType<Elems...>>{
+        constexpr static std::size_t value = sizeof...(Elems);
+    };
+    template<template<typename...>class TupleType, typename... Elems>
+    struct tuple_size<const TupleType<Elems...>>{
         constexpr static std::size_t value = sizeof...(Elems);
     };
 
@@ -37,10 +41,14 @@ namespace tuptup {
     template<typename F, typename T, typename enabler = void>
     struct apply_type;
     template<typename F, template<typename...>class TupleType, typename... Elms>
-    struct apply_type<F, TupleType<Elms...>, typename std::enable_if<placeholder_t_count<F>::value == 1>::type>{
-        using type = TupleType<typename replace<F, Elms>::type...>;
+    struct apply_type<F, TupleType<Elms...>, typename std::enable_if<type_placeholders::count<F>::value == 1>::type>{
+        using type = TupleType<typename type_placeholders::replace<F, Elms>::type...>;
+    };
+    template<typename F, template<typename...>class TupleType, typename... Elms>
+    struct apply_type<F, const TupleType<Elms...>, typename std::enable_if<type_placeholders::count<F>::value == 1>::type>{
+        using type = const TupleType<typename type_placeholders::replace<F, Elms>::type...>;
     };
 
-    template<typename F, typename T, typename std::enable_if<placeholder_t_count<F>::value == 1, std::nullptr_t>::type = nullptr>
+    template<typename F, typename T, typename std::enable_if<type_placeholders::count<F>::value == 1, std::nullptr_t>::type = nullptr>
     using apply_type_t = typename apply_type<F, T>::type;
 }

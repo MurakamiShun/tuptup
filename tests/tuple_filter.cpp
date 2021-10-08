@@ -9,7 +9,7 @@ struct is_over2byte{
 };
 
 int main(){
-    using namespace tuptup::placeholder_t;
+    using namespace tuptup::type_placeholders;
     std::tuple<std::string, int, int> sii{"test", 5, 6};
     
     auto filtered = tuptup::tuple_filter<std::is_integral<_1>>(sii);

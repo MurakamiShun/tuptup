@@ -1574,7 +1574,7 @@ namespace tuptup{
 
     public:
         static constexpr std::size_t base_class_num = []() constexpr {
-            constexpr auto initializable_bases = initializable_list<any_base>(std::make_index_sequence<sizeof(T) * 8>{});
+            constexpr auto initializable_bases = initializable_list<any_base>(std::make_index_sequence<std::min(sizeof(T) * 8, static_cast<std::size_t>(128 + 64))>{});
             return std::distance(
                 initializable_bases.begin(),
                 find(initializable_bases.begin(), initializable_bases.end(), false)
@@ -1582,7 +1582,7 @@ namespace tuptup{
         }();
 
         static constexpr std::size_t variable_num = []() constexpr {
-            constexpr auto initializable_arr = initializable_list<anything>(std::make_index_sequence<sizeof(T) * 8>{});
+            constexpr auto initializable_arr = initializable_list<anything>(std::make_index_sequence<std::min(sizeof(T) * 8, static_cast<std::size_t>(128 + 64))>{});
             return std::distance(
                 initializable_arr.begin(),
                 find(initializable_arr.begin(), initializable_arr.end(), false)
