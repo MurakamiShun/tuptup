@@ -1,15 +1,12 @@
 #pragma once
 #include <type_traits>
 #include <tuple>
-#include <array>
-#include <algorithm>
 /*
  * tuptup: https://github.com/akisute514/tuptup/
  * Copyright (c) 2021 akisute514
  * 
  * Released under the MIT Lisence.
  */
-
 
 namespace tuptup::detail{
 template<typename T>
@@ -1560,33 +1557,18 @@ namespace tuptup{
             return false;
         }
 
-        template<template<auto>class Any, size_t... I>
-        static constexpr std::array<bool, sizeof...(I)> initializable_list([[maybe_unused]] std::index_sequence<I...>) noexcept {
-            return { initializable<Any>(std::make_index_sequence<I>{}, 0)... };
+        template<template<auto>class Any, size_t N, std::size_t MaxArgCount>
+        static constexpr std::size_t max_initializable_arg_count() noexcept {
+            if constexpr(!initializable<Any>(std::make_index_sequence<N>{}, 0)) return N-1;
+            else return max_initializable_arg_count<Any, N+1, MaxArgCount>();
         }
-        template<typename Iterator, typename Value>
-        static constexpr auto find(Iterator begin, Iterator end, const Value&& value) noexcept{
-            for(; begin != end;  ++begin){
-                if(*begin == value) break;
-            }
-            return begin;
-        }
-
     public:
         static constexpr std::size_t base_class_num = []() constexpr {
-            constexpr auto initializable_bases = initializable_list<any_base>(std::make_index_sequence<std::min(sizeof(T) * 8, static_cast<std::size_t>(128 + 64))>{});
-            return std::distance(
-                initializable_bases.begin(),
-                find(initializable_bases.begin(), initializable_bases.end(), false)
-            ) - 1;
+            return max_initializable_arg_count<any_base, 0, sizeof(T) * 8>();
         }();
 
         static constexpr std::size_t variable_num = []() constexpr {
-            constexpr auto initializable_arr = initializable_list<anything>(std::make_index_sequence<std::min(sizeof(T) * 8, static_cast<std::size_t>(128 + 64))>{});
-            return std::distance(
-                initializable_arr.begin(),
-                find(initializable_arr.begin(), initializable_arr.end(), false)
-            ) - 1;
+           return max_initializable_arg_count<anything, 0, sizeof(T) * 8>();
         }() - base_class_num;
 
         constexpr auto operator()(T& t) const noexcept {
