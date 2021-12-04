@@ -1,7 +1,5 @@
 # tuptup [![gcc](https://github.com/akisute514/tuptup/actions/workflows/gcc-test.yml/badge.svg)](https://github.com/akisute514/tuptup/actions/workflows/gcc-test.yml) [![clang](https://github.com/akisute514/tuptup/actions/workflows/clang-test.yml/badge.svg)](https://github.com/akisute514/tuptup/actions/workflows/clang-test.yml) [![MSVC](https://github.com/akisute514/tuptup/actions/workflows/msvc-test.yml/badge.svg)](https://github.com/akisute514/tuptup/actions/workflows/msvc-test.yml)
 
-![logo](docs/logo.png)
-
 tuptup is advanced `std::tuple` library for C++11/14/17.
 
 

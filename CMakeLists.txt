@@ -5,6 +5,7 @@ project(tuptup VERSION 1.0.0 LANGUAGES CXX)
 include(GNUInstallDirs)
 
 add_library(${PROJECT_NAME} INTERFACE)
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_include_directories(
     ${PROJECT_NAME}
