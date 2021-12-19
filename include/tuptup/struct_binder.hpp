@@ -1586,7 +1586,7 @@ namespace tuptup{
         }();
 
         static constexpr std::size_t variable_num = []() constexpr {
-           return max_initializable_arg_count<anything, 0>();
+           return max_initializable_arg_count<anything, base_class_num>();
         }() - base_class_num;
 
         constexpr auto operator()(T& t) const noexcept {

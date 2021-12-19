@@ -47,17 +47,26 @@ namespace tuptup {
             struct for_each {
                 using type = integer_sequence<Int, F{}(Values)...>;
             };
+            template<Int I>
+            struct add {
+                using type = integer_sequence<Int, (Values + I)...>;
+            };
         };
-
-        template<typename IntSeq, typename Next, typename Last, typename = void>
+        template<typename Int, Int Next, Int Last, typename = void>
         struct integer_range_impl;
-        template<typename Int, Int Next, Int Last, Int... Values>
-        struct integer_range_impl<integer_sequence<Int, Values...>, std::integral_constant<Int, Next>, std::integral_constant<Int, Last>, typename std::enable_if<(Next >= Last)>::type>{
-            using type = integer_sequence<Int, Values...>;
+        template<typename Int, Int Next, Int Last>
+        struct integer_range_impl<Int, Next, Last, typename std::enable_if<(Last <= Next)>::type>{
+            using type = integer_sequence<Int>;
         };
-        template<typename Int, Int Next, Int Last, Int... Values>
-        struct integer_range_impl<integer_sequence<Int, Values...>, std::integral_constant<Int, Next>, std::integral_constant<Int, Last>, typename std::enable_if<(Next < Last)>::type>{
-            using type = typename integer_range_impl<integer_sequence<Int, Values..., Next>, std::integral_constant<Int, Next+1>, std::integral_constant<Int, Last>>::type;
+        template<typename Int, Int Next, Int Last>
+        struct integer_range_impl<Int, Next, Last, typename std::enable_if<(Last == Next + 1)>::type>{
+            using type = integer_sequence<Int, Next>;
+        };
+        template<typename Int, Int Next, Int Last>
+        struct integer_range_impl<Int, Next, Last, typename std::enable_if<(Last > Next + 1)>::type>{
+            using head_seq = typename integer_sequence_impl<typename integer_range_impl<Int, 0, (Last-Next)/2>::type>::template add<Next>::type;
+            using tail_seq = typename integer_sequence_impl<typename integer_range_impl<Int, 0, Last - (Next+(Last-Next)/2)>::type>::template add<Next+(Last-Next)/2>::type;
+            using type = typename integer_sequence_impl<head_seq>::template concat<tail_seq>::type;
         };
     }
     template<typename IntSeq, typename IntSeq::value_type Last>
@@ -68,12 +77,16 @@ namespace tuptup {
     template<typename IntSeqLeft, typename IntSeqRight>
     using integer_sequence_cat = typename detail::integer_sequence_impl<IntSeqLeft>::template concat<IntSeqRight>::type;
 
+    template<typename Int, Int N>
+    using make_integer_sequence =
+    #if (defined(__cplusplus) && __cplusplus < 201402L)  || (defined(_MSC_VER) && _MSVC_LANG < 201402L)
+        typename detail::integer_range_impl<Int, 0, N>::type;
+    #else
+        std::make_integer_sequence<Int, N>;
+    #endif
 
     template<typename Int, Int First, Int Last>
-    using make_integer_range = typename detail::integer_range_impl<integer_sequence<Int>, std::integral_constant<Int, First>, std::integral_constant<Int, Last>>::type;
-
-    template<typename Int, Int N>
-    using make_integer_sequence = typename detail::integer_range_impl<integer_sequence<Int>, std::integral_constant<Int, 0>, std::integral_constant<Int, N>>::type;
+    using make_integer_range = typename detail::integer_sequence_impl<make_integer_sequence<Int, Last-First>>::template add<First>::type;
 
     template<typename F, typename IntSeq>
     using integer_sequence_for_each = typename detail::integer_sequence_impl<IntSeq>::template for_each<F>::type;
