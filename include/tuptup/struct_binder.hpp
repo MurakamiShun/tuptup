@@ -8,6 +8,10 @@
  * Released under the MIT Lisence.
  */
 
+#ifndef TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT
+#define TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT 128
+#endif
+
 namespace tuptup::detail{
 template<typename T>
 auto make_reference_tuple([[maybe_unused]]T&, [[maybe_unused]] std::integral_constant<std::size_t, 0>){
@@ -93,6 +97,7 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15] = arg;
     return std::tie(a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15);
 }
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 16
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 17>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -205,6 +210,8 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
     return std::tie(a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
                    ,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30,a31);
 }
+#endif
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 32
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 33>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -349,6 +356,8 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
                    ,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30,a31,a32
                    ,a33,a34,a35,a36,a37,a38,a39,a40,a41,a42,a43,a44,a45,a46,a47);
 }
+#endif
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 48
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 49>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -525,6 +534,8 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
                    ,a33,a34,a35,a36,a37,a38,a39,a40,a41,a42,a43,a44,a45,a46,a47,a48
                    ,a49,a50,a51,a52,a53,a54,a55,a56,a57,a58,a59,a60,a61,a62,a63);
 }
+#endif
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 64
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 65>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -733,6 +744,8 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
                    ,a49,a50,a51,a52,a53,a54,a55,a56,a57,a58,a59,a60,a61,a62,a63,a64
                    ,a65,a66,a67,a68,a69,a70,a71,a72,a73,a74,a75,a76,a77,a78,a79);
 }
+#endif
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 80
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 81>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -973,6 +986,8 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
                    ,a65,a66,a67,a68,a69,a70,a71,a72,a73,a74,a75,a76,a77,a78,a79,a80
                    ,a81,a82,a83,a84,a85,a86,a87,a88,a89,a90,a91,a92,a93,a94,a95);
 }
+#endif
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 96
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 97>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -1245,6 +1260,8 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
                    ,a81,a82,a83,a84,a85,a86,a87,a88,a89,a90,a91,a92,a93,a94,a95,a96
                    ,a97,a98,a99,a100,a101,a102,a103,a104,a105,a106,a107,a108,a109,a110,a111);
 }
+#endif
+#if TUPTUP_STRUCT_BINDER_MAX_VAR_COUNT > 112
 template<typename T>
 auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::size_t, 113>){
     auto& [a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16
@@ -1530,6 +1547,7 @@ auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_constant<std::s
                    ,a97,a98,a99,a100,a101,a102,a103,a104,a105,a106,a107,a108,a109,a110,a111,a112
                    ,a113,a114,a115,a116,a117,a118,a119,a120,a121,a122,a123,a124,a125,a126);
 }
+#endif
 }
 namespace tuptup{
     template<typename T, typename std::enable_if<std::is_aggregate<T>::value, std::nullptr_t>::type = nullptr>
@@ -1557,18 +1575,18 @@ namespace tuptup{
             return false;
         }
 
-        template<template<auto>class Any, size_t N, std::size_t MaxArgCount>
+        template<template<auto>class Any, size_t N>
         static constexpr std::size_t max_initializable_arg_count() noexcept {
             if constexpr(!initializable<Any>(std::make_index_sequence<N>{}, 0)) return N-1;
-            else return max_initializable_arg_count<Any, N+1, MaxArgCount>();
+            else return max_initializable_arg_count<Any, N+1>();
         }
     public:
         static constexpr std::size_t base_class_num = []() constexpr {
-            return max_initializable_arg_count<any_base, 0, sizeof(T) * 8>();
+            return max_initializable_arg_count<any_base, 0>();
         }();
 
         static constexpr std::size_t variable_num = []() constexpr {
-           return max_initializable_arg_count<anything, 0, sizeof(T) * 8>();
+           return max_initializable_arg_count<anything, 0>();
         }() - base_class_num;
 
         constexpr auto operator()(T& t) const noexcept {
