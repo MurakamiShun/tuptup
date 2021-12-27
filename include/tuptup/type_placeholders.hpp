@@ -14,7 +14,7 @@ namespace type_placeholders {
         static constexpr bool value = false;
     };
     template<typename T>
-    struct is_transformation_trait<T, typename std::enable_if<(typename T::type{}, true)>::type>{
+    struct is_transformation_trait<T, typename std::enable_if<(std::declval<typename T::type>(), true)>::type>{
         static constexpr bool value = true;
     };
 
