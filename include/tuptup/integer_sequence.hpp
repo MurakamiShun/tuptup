@@ -5,7 +5,7 @@
  * tuptup: https://github.com/akisute514/tuptup/
  * Copyright (c) 2021 akisute514
  * 
- * Released under the MIT Lisence.
+ * Released under the MIT License.
  */
 
 namespace tuptup {
