@@ -8,7 +8,7 @@ tuptup is advanced `std::tuple` library for C++11/14/17.
 C++11 or later
 - [tuple_cat_t](docs/tuple_cat_t.md)
 - [tuple_front_t](docs/useful_alias.md)
-- [tuple_back_t](docs/usefull_alias.md)
+- [tuple_back_t](docs/useful_alias.md)
 - [apply_type_t](docs/apply_type.md)
 - [tuple_slice_t](docs/tuple_slice.md)
 - [tuple_filter_t](docs/tuple_filter.md)
