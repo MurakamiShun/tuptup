@@ -4,7 +4,7 @@
  * tuptup: https://github.com/akisute514/tuptup/
  * Copyright (c) 2021 akisute514
  * 
- * Released under the MIT Lisence.
+ * Released under the MIT License.
  */
 
 namespace tuptup{
@@ -14,7 +14,7 @@ namespace type_placeholders {
         static constexpr bool value = false;
     };
     template<typename T>
-    struct is_transformation_trait<T, typename std::enable_if<(typename T::type{}, true)>::type>{
+    struct is_transformation_trait<T, typename std::enable_if<(std::declval<typename T::type>(), true)>::type>{
         static constexpr bool value = true;
     };
 

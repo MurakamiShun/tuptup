@@ -10,21 +10,23 @@ struct square{
 
 int main(){
     // make integer_sequence
+    // even
+    assert((std::is_same<
+        tuptup::make_integer_sequence<std::size_t, 6>,
+        tuptup::integer_sequence<std::size_t, 0,1,2,3,4,5>
+    >::value));
+    // odd
     assert((std::is_same<
         tuptup::make_integer_sequence<std::size_t, 5>,
         tuptup::integer_sequence<std::size_t, 0,1,2,3,4>
     >::value));
-
+    using big_sequence = tuptup::make_integer_sequence<std::size_t, 10240>;
+    
     // make integer range
     assert((std::is_same<
         tuptup::make_integer_range<std::size_t, 5, 10>,
         tuptup::integer_sequence<std::size_t, 5,6,7,8,9>
     >::value));
-    assert((std::is_same<
-        tuptup::make_integer_range<int, 5, 1>,
-        tuptup::integer_sequence<int>
-    >::value));
-
 
     // apply function to integer_sequence
     tuptup::integer_sequence<std::size_t, 5,6,9> int_seq_569;
