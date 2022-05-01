@@ -11,15 +11,7 @@
 
 namespace tuptup {
     template<typename T>
-    struct tuple_size;
-    template<template<typename...>class TupleType, typename... Elems>
-    struct tuple_size<TupleType<Elems...>>{
-        constexpr static std::size_t value = sizeof...(Elems);
-    };
-    template<template<typename...>class TupleType, typename... Elems>
-    struct tuple_size<const TupleType<Elems...>>{
-        constexpr static std::size_t value = sizeof...(Elems);
-    };
+    using tuple_size = std::tuple_size<T>;
 
     template<typename... Elms>
     using tuple = std::tuple<Elms...>;
