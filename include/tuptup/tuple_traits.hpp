@@ -52,6 +52,6 @@ namespace tuptup {
         struct contains_in_tuple_detail<std::tuple<Head, Tails...>>{
             constexpr static bool value = std::is_same<E, Head>::value || contains_in_tuple_detail<std::tuple<Tails...>>::value;
         };
-        constexpr static bool value = contains_in_tuple_detail<T>::value;
+        constexpr static bool value = contains_in_tuple_detail<typename std::remove_cv<T>::type>::value;
     };
 }
