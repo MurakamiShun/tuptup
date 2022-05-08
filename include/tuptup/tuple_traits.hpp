@@ -43,4 +43,15 @@ namespace tuptup {
 
     template<typename F, typename T, typename std::enable_if<type_placeholders::count<F>::value == 1, std::nullptr_t>::type = nullptr>
     using apply_type_t = typename apply_type<F, T>::type;
+
+    template<typename E, typename T>
+    struct contains_in_tuple{
+        template<typename Tuple>
+        struct contains_in_tuple_detail{ constexpr static bool value = false; };
+        template<typename Head, typename... Tails>
+        struct contains_in_tuple_detail<std::tuple<Head, Tails...>>{
+            constexpr static bool value = std::is_same<E, Head>::value || contains_in_tuple_detail<std::tuple<Tails...>>::value;
+        };
+        constexpr static bool value = contains_in_tuple_detail<T>::value;
+    };
 }
