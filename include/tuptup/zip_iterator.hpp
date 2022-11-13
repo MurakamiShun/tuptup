@@ -33,9 +33,9 @@ public:
     explicit zip_iterator(const iterator_tuple&);
     explicit zip_iterator(iterator_tuple&&);
 
-    difference_type operator-(const zip_iterator&);
-    zip_iterator operator-(difference_type);
-    zip_iterator operator+(difference_type);
+    difference_type operator-(const zip_iterator&) const;
+    zip_iterator operator-(difference_type) const;
+    zip_iterator operator+(difference_type) const;
 
     zip_iterator& operator++();
     zip_iterator& operator--();
@@ -45,6 +45,7 @@ public:
     bool operator<(const zip_iterator&) const;
 
     reference operator*();
+    const reference operator*() const;
 };
 
 #if __cplusplus >= 201703L
@@ -83,17 +84,17 @@ iters(std::move(it)){
 }
 
 template<class... Iterators>
-typename zip_iterator<tuple<Iterators...>>::difference_type zip_iterator<tuple<Iterators...>>::operator-(const zip_iterator& z_it){
+typename zip_iterator<tuple<Iterators...>>::difference_type zip_iterator<tuple<Iterators...>>::operator-(const zip_iterator& z_it) const{
     return std::get<0>(iters) - std::get<0>(z_it.iters);
 }
 template<class... Iterators>
-zip_iterator<tuple<Iterators...>> zip_iterator<tuple<Iterators...>>::operator-(difference_type d){
+zip_iterator<tuple<Iterators...>> zip_iterator<tuple<Iterators...>>::operator-(difference_type d) const{
     zip_iterator<tuple<Iterators...>> rtn(*this);
     tuptup::apply_each([d](auto& it){ it -= d; }, rtn.iters);
     return rtn;
 }
 template<class... Iterators>
-zip_iterator<tuple<Iterators...>> zip_iterator<tuple<Iterators...>>::operator+(difference_type d){
+zip_iterator<tuple<Iterators...>> zip_iterator<tuple<Iterators...>>::operator+(difference_type d) const{
     zip_iterator<tuple<Iterators...>> rtn(*this);
     tuptup::apply_each([d](auto& it){ it+= d; }, rtn.iters);
     return rtn;
@@ -128,6 +129,10 @@ namespace detail{
 }
 template<class... Iterators>
 typename zip_iterator<tuple<Iterators...>>::reference zip_iterator<tuple<Iterators...>>::operator*(){
+    return detail::make_reference_tuple_helper(iters, make_index_sequence<sizeof...(Iterators)>{});
+}
+template<class... Iterators>
+const typename zip_iterator<tuple<Iterators...>>::reference zip_iterator<tuple<Iterators...>>::operator*() const{
     return detail::make_reference_tuple_helper(iters, make_index_sequence<sizeof...(Iterators)>{});
 }
 
