@@ -1598,4 +1598,41 @@ namespace tuptup{
 
         using type = decltype(detail::make_reference_tuple(std::declval<T&>(), std::integral_constant<std::size_t, variable_num>{}));
     };
+
+    template<typename T>
+    static auto tie_from_struct(T& t) noexcept {
+        return struct_binder<T>{}(t);
+    }
+
+    namespace detail{
+        struct make_tuple_from_struct_impl{
+            template<typename Tup, std::size_t... I>
+            static auto make_tuple_by_move_impl(Tup& tup, std::index_sequence<I...>){
+                return std::make_tuple(std::move(std::get<I>(tup)...));
+            }
+            template<typename Tup>
+            static auto make_tuple_by_move(Tup& tup) {
+                return make_tuple_by_move_impl(tup, std::make_index_sequence<std::tuple_size_v<Tup>>{});
+            }
+            template<typename Tup, std::size_t... I>
+            static auto make_tuple_impl(Tup& tup, std::index_sequence<I...>){
+                return std::make_tuple(std::get<I>(tup)...);
+            }
+            template<typename Tup>
+            static auto make_tuple(Tup& tup) {
+                return make_tuple_impl(tup, std::make_index_sequence<std::tuple_size_v<Tup>>{});
+            }
+        };
+    }
+
+    template<typename T>
+    static auto make_tuple_from_struct(T&& t){
+        auto member_ref_tuple = struct_binder<std::remove_reference_t<T>>{}(t);
+        if constexpr(std::is_rvalue_reference_v<T>){
+            return detail::make_tuple_from_struct_impl::make_tuple_by_move(member_ref_tuple);
+        }
+        else{
+            return detail::make_tuple_from_struct_impl::make_tuple(member_ref_tuple);
+        }
+    }
 }

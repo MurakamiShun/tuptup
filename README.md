@@ -27,6 +27,9 @@ C++11 or later
 - [indexed_apply_each](docs/indexed_apply_each.md)
 - apply (Compatible with `std::apply`)
 
+C++14 or later
+- [make_zip_iterator](docs/zip_iterator.md)
+
 C++17 or later
 - [struct_binder::operator()](docs/struct_binder.md)
 
@@ -35,6 +38,9 @@ C++17 or later
 C++11 or later
 - [integer_sequence](docs/integer_sequence.md)
 - [type_placeholders](docs/type_placeholders.md)
+
+C++14 or later
+- [zip_iterator](docs/zip_iterator.md)
 
 
 # License

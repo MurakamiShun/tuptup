@@ -11,15 +11,7 @@
 
 namespace tuptup {
     template<typename T>
-    struct tuple_size;
-    template<template<typename...>class TupleType, typename... Elems>
-    struct tuple_size<TupleType<Elems...>>{
-        constexpr static std::size_t value = sizeof...(Elems);
-    };
-    template<template<typename...>class TupleType, typename... Elems>
-    struct tuple_size<const TupleType<Elems...>>{
-        constexpr static std::size_t value = sizeof...(Elems);
-    };
+    using tuple_size = std::tuple_size<T>;
 
     template<typename... Elms>
     using tuple = std::tuple<Elms...>;
@@ -51,4 +43,15 @@ namespace tuptup {
 
     template<typename F, typename T, typename std::enable_if<type_placeholders::count<F>::value == 1, std::nullptr_t>::type = nullptr>
     using apply_type_t = typename apply_type<F, T>::type;
+
+    template<typename E, typename T>
+    struct contains_in_tuple{
+        template<typename Tuple>
+        struct contains_in_tuple_detail{ constexpr static bool value = false; };
+        template<typename Head, typename... Tails>
+        struct contains_in_tuple_detail<std::tuple<Head, Tails...>>{
+            constexpr static bool value = std::is_same<E, Head>::value || contains_in_tuple_detail<std::tuple<Tails...>>::value;
+        };
+        constexpr static bool value = contains_in_tuple_detail<typename std::remove_cv<T>::type>::value;
+    };
 }
