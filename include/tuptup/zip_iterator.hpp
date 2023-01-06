@@ -45,7 +45,7 @@ public:
     bool operator<(const zip_iterator&) const;
 
     reference operator*();
-    const reference operator*() const;
+    reference operator*() const;
 };
 
 #if __cplusplus >= 201703L
@@ -132,7 +132,7 @@ typename zip_iterator<tuple<Iterators...>>::reference zip_iterator<tuple<Iterato
     return detail::make_reference_tuple_helper(iters, make_index_sequence<sizeof...(Iterators)>{});
 }
 template<class... Iterators>
-const typename zip_iterator<tuple<Iterators...>>::reference zip_iterator<tuple<Iterators...>>::operator*() const{
+typename zip_iterator<tuple<Iterators...>>::reference zip_iterator<tuple<Iterators...>>::operator*() const{
     return detail::make_reference_tuple_helper(iters, make_index_sequence<sizeof...(Iterators)>{});
 }
 
