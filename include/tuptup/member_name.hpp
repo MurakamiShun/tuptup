@@ -16,7 +16,12 @@ namespace tuptup{
         private:
             static constexpr auto impl(){
                 #ifdef _MSC_VER
-                // ToDo
+                constexpr auto str_ptr = __FUNCTION__;
+                constexpr auto offset = std::char_traits<char>::length("detail::value_name<");
+                constexpr auto begin = str_ptr + offset + std::char_traits<char>::length(str_ptr[offset] == 's' ? "struct " : "class ");
+                
+                constexpr auto end_pos = std::string_view(str_ptr).rfind("}>::impl");
+                constexpr auto end = std::addressof(str_ptr[end_pos]);
                 #elif defined(__clang__)
                 constexpr auto str_ptr = __PRETTY_FUNCTION__;
                 constexpr auto begin = std::char_traits<char>::find(str_ptr, std::char_traits<char>::length(str_ptr), '[') + std::char_traits<char>::length("D = ");
@@ -44,7 +49,8 @@ namespace tuptup{
         auto& p = tuptup::get<N>(tuptup::tie_as_tuple(detail::fake_obj<std::remove_cvref_t<T>>));
         constexpr auto ptr_str = detail::value_name<detail::fake_member_ptr<std::remove_cvref_t<decltype(p)>>{std::addressof(p)}>::value;
         #ifdef _MSC_VER
-        // ToDo
+        constexpr auto begin = ptr_str.rfind(">.") + 2;
+        constexpr auto end = ptr_str.length();
         #elif defined(__clang__)
         constexpr auto begin = std::char_traits<char>::length("{&fake_obj.") + 1;
         constexpr auto end = ptr_str.rfind("}");
