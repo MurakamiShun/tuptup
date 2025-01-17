@@ -1,4 +1,5 @@
 #pragma once
+#include <string_view>
 #include "struct_as_tuple.hpp"
 /*
  * tuptup: https://github.com/MurakamiShun/tuptup/
@@ -52,7 +53,7 @@ namespace tuptup{
         constexpr auto begin = ptr_str.rfind(">.") + 2;
         constexpr auto end = ptr_str.length();
         #elif defined(__clang__)
-        constexpr auto begin = std::char_traits<char>::length("{&fake_obj.") + 1;
+        constexpr auto begin = ptr_str.rfind("{&fake_obj.") + 11;
         constexpr auto end = ptr_str.rfind("}");
         #elif defined(__GNUC__)
         constexpr auto begin = ptr_str.rfind("::") + 2;
