@@ -25,5 +25,9 @@
 #endif
 
 #if (defined(__cplusplus) && __cplusplus >= 201703L) || (defined(_MSVC_LANG) && _MSVC_LANG >= 201703L)
-#include "tuptup/struct_binder.hpp"
+#include "tuptup/struct_as_tuple.hpp"
+#endif
+
+#if (defined(__cplusplus) && __cplusplus >= 202002L) || (defined(_MSVC_LANG) && _MSVC_LANG >= 202002L)
+#include "tuptup/member_name.hpp"
 #endif

@@ -1,8 +1,8 @@
 #pragma once
 #include <tuple>
 /*
- * tuptup: https://github.com/akisute514/tuptup/
- * Copyright (c) 2021 akisute514
+ * tuptup: https://github.com/MurakamiShun/tuptup/
+ * Copyright (c) 2025 MurakamiShun
  * 
  * Released under the MIT License.
  */
