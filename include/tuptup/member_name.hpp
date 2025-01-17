@@ -9,8 +9,10 @@
  */
 
 namespace tuptup{
+    #ifdef __clang__
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Wundefined-var-template"
+    #endif
     namespace detail{
         template<auto D>
         class value_name {
@@ -38,8 +40,14 @@ namespace tuptup{
             static constexpr auto value = impl();
         };
 
+
+        #ifdef _MSC_VER
+        template<typename T>
+        constexpr T fake_obj = {};
+        #else 
         template<typename T>
         extern const T fake_obj;
+        #endif
 
         template <typename T>
         struct fake_member_ptr{const T* ptr;};
@@ -47,7 +55,7 @@ namespace tuptup{
 
     template <std::size_t N, typename T>
     constexpr auto get_name(){
-        auto& p = tuptup::get<N>(tuptup::tie_as_tuple(detail::fake_obj<std::remove_cvref_t<T>>));
+        constexpr auto& p = tuptup::get<N>(tuptup::tie_as_tuple(detail::fake_obj<std::remove_cvref_t<T>>));
         constexpr auto ptr_str = detail::value_name<detail::fake_member_ptr<std::remove_cvref_t<decltype(p)>>{std::addressof(p)}>::value;
         #ifdef _MSC_VER
         constexpr auto begin = ptr_str.rfind(">.") + 2;
@@ -61,5 +69,8 @@ namespace tuptup{
         #endif
         return ptr_str.substr(begin, end - begin);
     }
+
+    #ifdef __clang__
     #pragma clang diagnostic pop
+    #endif
 }
