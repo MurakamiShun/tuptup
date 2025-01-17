@@ -2,8 +2,8 @@
 #include <type_traits>
 #include <tuple>
 /*
- * tuptup: https://github.com/akisute514/tuptup/
- * Copyright (c) 2021 akisute514
+ * tuptup: https://github.com/MurakamiShun/tuptup/
+ * Copyright (c) 2025 MurakamiShun
  * 
  * Released under the MIT License.
  */
@@ -1551,7 +1551,7 @@ constexpr auto make_reference_tuple(T& arg, [[maybe_unused]] std::integral_const
 }
 namespace tuptup{
     template<typename T, typename std::enable_if<std::is_aggregate<T>::value, std::nullptr_t>::type = nullptr>
-    struct struct_binder {
+    struct struct_as_tuple {
     private:
         template<auto>
         struct anything {
@@ -1589,20 +1589,8 @@ namespace tuptup{
            return max_initializable_arg_count<anything, base_class_num>();
         }() - base_class_num;
 
-        constexpr auto operator()(T& t) const noexcept {
-            return detail::make_reference_tuple(t, std::integral_constant<std::size_t, variable_num>{});
-        }
-        constexpr auto operator()(const T& t) const noexcept {
-            return detail::make_reference_tuple(t, std::integral_constant<std::size_t, variable_num>{});
-        }
-
         using type = decltype(detail::make_reference_tuple(std::declval<T&>(), std::integral_constant<std::size_t, variable_num>{}));
     };
-
-    template<typename T>
-    static auto tie_from_struct(T& t) noexcept {
-        return struct_binder<T>{}(t);
-    }
 
     namespace detail{
         struct make_tuple_from_struct_impl{
@@ -1626,8 +1614,13 @@ namespace tuptup{
     }
 
     template<typename T>
-    static auto make_tuple_from_struct(T&& t){
-        auto member_ref_tuple = struct_binder<std::remove_reference_t<T>>{}(t);
+    constexpr auto tie_as_tuple(T&& t) noexcept {
+      return detail::make_reference_tuple(t, std::integral_constant<std::size_t, struct_as_tuple<std::remove_cv_t<std::remove_reference_t<T>>>::variable_num>{});
+    }
+
+    template<typename T>
+    constexpr auto make_as_tuple(T&& t){
+        auto member_ref_tuple = tie_as_tuple(t);
         if constexpr(std::is_rvalue_reference_v<T>){
             return detail::make_tuple_from_struct_impl::make_tuple_by_move(member_ref_tuple);
         }
@@ -1635,4 +1628,6 @@ namespace tuptup{
             return detail::make_tuple_from_struct_impl::make_tuple(member_ref_tuple);
         }
     }
+
+
 }

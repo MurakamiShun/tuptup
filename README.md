@@ -1,4 +1,4 @@
-# tuptup [![gcc](https://github.com/akisute514/tuptup/actions/workflows/gcc-test.yml/badge.svg)](https://github.com/akisute514/tuptup/actions/workflows/gcc-test.yml) [![clang](https://github.com/akisute514/tuptup/actions/workflows/clang-test.yml/badge.svg)](https://github.com/akisute514/tuptup/actions/workflows/clang-test.yml) [![MSVC](https://github.com/akisute514/tuptup/actions/workflows/msvc-test.yml/badge.svg)](https://github.com/akisute514/tuptup/actions/workflows/msvc-test.yml)
+# tuptup [![gcc](https://github.com/MurakamiShun/tuptup/actions/workflows/gcc-test.yml/badge.svg)](https://github.com/MurakamiShun/tuptup/actions/workflows/gcc-test.yml) [![clang](https://github.com/MurakamiShun/tuptup/actions/workflows/clang-test.yml/badge.svg)](https://github.com/MurakamiShun/tuptup/actions/workflows/clang-test.yml) [![MSVC](https://github.com/MurakamiShun/tuptup/actions/workflows/msvc-test.yml/badge.svg)](https://github.com/MurakamiShun/tuptup/actions/workflows/msvc-test.yml)
 
 tuptup is advanced `std::tuple` library for C++11/14/17.
 
@@ -14,7 +14,7 @@ C++11 or later
 - [tuple_filter_t](docs/tuple_filter.md)
 
 C++17 or later
-- [struct_binder](docs/struct_binder.md)
+- [struct_as_tuple](docs/struct_as_tuple.md)
 
 ## Functions
 
@@ -31,7 +31,11 @@ C++14 or later
 - [make_zip_iterator](docs/zip_iterator.md)
 
 C++17 or later
-- [struct_binder::operator()](docs/struct_binder.md)
+- [tie_as_tuple](docs/struct_as_tuple.md)
+- [make_as_tuple](docs/struct_as_tuple.md)
+
+C++20 or later
+- [get_name()](docs/member_name.md)
 
 ## Others
 
